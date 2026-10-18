@@ -6,6 +6,19 @@
     <title>To Do List</title>
 </head>
 <body>
-    
+    <template id="add-todo-button-template">
+        <button commandfor="add-todo-dialog" command="show-modal">Add ToDo</button>
+        <dialog id="add-todo-dialog">
+            <form id="add-todo-form">
+                <label for="title">Title: </label>
+                <input id="title" type="text">
+
+                <label for="dueDate">Due Date: </label>
+                <input id="dueDate" type="date">
+
+                <button>Submit</button>
+            </form>
+        </dialog>
+    </template>
 </body>
 </html>
