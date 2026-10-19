@@ -14,4 +14,8 @@ export class ToDo {
     updateCompleteStatus() {
         this.isComplete = !this.isComplete;
     }
+
+    getId() {
+        return this.id;
+    }
 }

@@ -13,18 +13,40 @@ import "./style.css";
 // edit project
 // delete project
 
-const defaultProject = new Project("default", []);
-createProjectElement(defaultProject.getId(), "default");
+function initializeProjects() {
+    const storedProjects = localStorage.getItem("projects");
+    if (storedProjects) {
+        const projects = JSON.parse(storedProjects);
+        projects.forEach(project => {
+            createProjectElement(project.id, project.title, true);
+            project.todos.forEach(todo => {
+                createToDoElement(project.id, todo.id, todo.title, todo.dueDate, true);
+            });
+        });
+    } else {
+        const defaultProject = new Project("default", []);
+        createProjectElement(defaultProject.getId(), "default");
+    }
+}
 
-const addProjectDialog = document.getElementById("add-project-dialog");
-const addProjectForm = document.querySelector(".add-project-form");
-const projectTitleInput = document.getElementById("project-title-input");
+function addProjectButton() {
+    const addProjectDialog = document.getElementById("add-project-dialog");
+    const addProjectForm = document.querySelector(".add-project-form");
+    const projectTitleInput = document.getElementById("project-title-input");
 
-addProjectForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const project = new Project(projectTitleInput.value, []);
-    createProjectElement(project.getId(), projectTitleInput.value);
+    addProjectForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const project = new Project(projectTitleInput.value, []);
+        createProjectElement(project.getId(), projectTitleInput.value);
 
-    addProjectDialog.close();
-    addProjectForm.reset();
-})
+        addProjectDialog.close();
+        addProjectForm.reset();
+    })
+}
+
+function render() {
+    addProjectButton();
+    initializeProjects();
+}
+
+render()

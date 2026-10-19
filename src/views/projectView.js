@@ -1,11 +1,11 @@
 import { createToDoElement } from "./todoView.js";
 import { ToDo } from "../models/todo.js";
 
-export function createProjectElement(id, title) {
+export function createProjectElement(projectId, title, buildFromStorage=false) {
     const body = document.querySelector("body");
     const projectElement = document.createElement("div");
     projectElement.setAttribute("class", "project");
-    projectElement.setAttribute("data-proj-name", title);
+    projectElement.setAttribute("data-project-id", projectId);
 
     const projectTitle = document.createElement("h3");
     projectTitle.textContent = title;
@@ -16,7 +16,6 @@ export function createProjectElement(id, title) {
     const addTodoTemplate = document.getElementById("add-todo-template");
     const clone = addTodoTemplate.content.cloneNode(true);
     const form = clone.querySelector(".add-todo-form");
-    form.setAttribute("data-project-id", id);
     projectElement.appendChild(clone);
 
     form.addEventListener("submit", (event) => {
@@ -27,11 +26,16 @@ export function createProjectElement(id, title) {
         const dueDateInput = form.querySelector(".todo-dueDate-input");
         const dueDate = dueDateInput.value;
 
-        createToDoElement(id, toDoTitle, dueDate);
         const todo = new ToDo(toDoTitle, dueDate);
-
-        localStorage.setItem(`${todo.id}`, toDoTitle);
+        createToDoElement(projectId, todo.getId(), toDoTitle, dueDate);
 
         form.reset();
     })
+
+    if(!buildFromStorage) {
+        const projectsArray = JSON.parse(localStorage.getItem("projects")) || [];
+        projectsArray.push({id: projectId, title: `${title}`, todos: []});
+        localStorage.setItem("projects", JSON.stringify(projectsArray));
+    }
+
 }
