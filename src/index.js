@@ -1,33 +1,30 @@
-import { Project } from "./project.js";
-import { ToDo } from "./todo.js";
+import { Project } from "./models/project.js";
+import { ToDo } from "./models/todo.js";
+import { createProjectElement } from "./views/projectView.js";
+import { createToDoElement } from "./views/todoView.js";
 import "./style.css";
 
-const body = document.querySelector("body");
-
-const defaultProjectElement = document.createElement("div");
-defaultProjectElement.setAttribute("class", "project");
-defaultProjectElement.setAttribute("data-proj-name", "default");
-body.appendChild(defaultProjectElement);
-
-const addTodoButtonTemplate = document.getElementById("add-todo-button-template");
-const clone = addTodoButtonTemplate.content.cloneNode(true);
-defaultProjectElement.appendChild(clone);
+//todo: 
+// checkmarks to complete tasks
+// localStorage formatting
+// render existing tasks in localStorage
+// edit todo
+// delete todo
+// edit project
+// delete project
 
 const defaultProject = new Project("default", []);
+createProjectElement(defaultProject.getId(), "default");
 
-const addTodoForm = document.getElementById("add-todo-form");
-const addTodoDialog = document.getElementById("add-todo-dialog");
-addTodoForm.addEventListener("submit", (event) => {
+const addProjectDialog = document.getElementById("add-project-dialog");
+const addProjectForm = document.querySelector(".add-project-form");
+const projectTitleInput = document.getElementById("project-title-input");
+
+addProjectForm.addEventListener("submit", (event) => {
     event.preventDefault();
+    const project = new Project(projectTitleInput.value, []);
+    createProjectElement(project.getId(), projectTitleInput.value);
 
-    const title = document.getElementById("title");
-    const dueDate = document.getElementById("dueDate");
-
-    const todoElement = document.createElement("span");
-    todoElement.textContent = `${title.value}, due by: ${dueDate.value}`;
-    defaultProjectElement.appendChild(todoElement);
-
-    addTodoDialog.close();
-    addTodoForm.reset();
+    addProjectDialog.close();
+    addProjectForm.reset();
 })
-

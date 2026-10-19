@@ -6,19 +6,28 @@
     <title>To Do List</title>
 </head>
 <body>
-    <template id="add-todo-button-template">
-        <button commandfor="add-todo-dialog" command="show-modal">Add ToDo</button>
-        <dialog id="add-todo-dialog">
-            <form id="add-todo-form">
-                <label for="title">Title: </label>
-                <input id="title" type="text">
+    <button id="add-project-button" commandfor="add-project-dialog" command="show-modal">
+        Add Project
+    </button>
+    <dialog id="add-project-dialog">
+        <form class="add-project-form">
+            <label for="project-title-input">Project title:</label>
+            <input id="project-title-input" type="text">
 
-                <label for="dueDate">Due Date: </label>
-                <input id="dueDate" type="date">
+            <button>Create Project</button>
+        </form>
+    </dialog>
 
-                <button>Submit</button>
-            </form>
-        </dialog>
+    <template id="add-todo-template">
+        <form class="add-todo-form">
+            <label for="title">Title: </label>
+            <input class="todo-title-input" type="text">
+
+            <label for="dueDate">Due Date: </label>
+            <input class="todo-dueDate-input" type="date">
+
+            <button>Submit</button>
+        </form>
     </template>
 </body>
 </html>
