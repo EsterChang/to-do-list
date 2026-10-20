@@ -18,4 +18,12 @@ export class ToDo {
     getId() {
         return this.id;
     }
+
+    setIsComplete(value) {
+        this.isComplete = value;
+    }
+
+    getIsComplete() {
+        return this.isComplete;
+    }
 }

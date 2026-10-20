@@ -6,10 +6,7 @@ import "./style.css";
 
 //todo: 
 // checkmarks to complete tasks
-// localStorage formatting
-// render existing tasks in localStorage
 // edit todo
-// delete todo
 // edit project
 // delete project
 
@@ -20,7 +17,7 @@ function initializeProjects() {
         projects.forEach(project => {
             createProjectElement(project.id, project.title, true);
             project.todos.forEach(todo => {
-                createToDoElement(project.id, todo.id, todo.title, todo.dueDate, true);
+                createToDoElement(project.id, todo.id, todo.title, todo.dueDate, todo.isCompleted, true);
             });
         });
     } else {
