@@ -8,9 +8,18 @@ export function createToDoElement(projectId, todoId, title, dueDate, isCompleted
 
     createCheckboxInput(todoElement, isCompleted);
 
-    const textSpan = document.createElement("span");
-    textSpan.textContent = `${title}, due by: ${dueDate}`;
-    todoElement.appendChild(textSpan);
+    const textDiv = document.createElement("div");
+    textDiv.className = "todo-text"
+    const titleSpan = document.createElement("span");
+    titleSpan.textContent = `${title} `;
+    titleSpan.className = "title-span"
+    const dueDateSpan = document.createElement("span");
+    dueDateSpan.className = "due-date-span"
+    dueDateSpan.textContent = `due by: ${dueDate}`;
+
+    textDiv.appendChild(titleSpan);
+    textDiv.appendChild(dueDateSpan);
+    todoElement.appendChild(textDiv);
 
     createEditButton(todoElement);
     createDeleteButton(todoElement);
@@ -45,16 +54,54 @@ function createCheckboxInput(todoElement, isCompleted) {
 
 function createEditButton(todoElement) {
     const editButton = document.createElement("button");
+    const dialog = document.createElement("dialog");
+
+    const addTodoTemplate = document.getElementById("add-todo-template");
+    const clone = addTodoTemplate.content.cloneNode(true);
+    const form = clone.querySelector(".add-todo-form");
+
+    const toDoTitleInput = form.querySelector(".todo-title-input");
+    const dueDateInput = form.querySelector(".todo-dueDate-input")
+    
+    dialog.id = "edit-todo-dialog";
     editButton.className = "edit-button";
     editButton.textContent = "Edit";
+    editButton.setAttribute("commandfor", dialog.id);
+    editButton.command = "show-modal"
 
+    dialog.appendChild(form);
     todoElement.appendChild(editButton);
+    todoElement.appendChild(dialog);
 
     editButton.addEventListener("click", () => {
+        toDoTitleInput.value = todoElement.querySelector(".title-span").textContent;
+        dueDateInput.value = todoElement.querySelector(".due-date-span").textContent;
+    })
 
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const toDoTitle = toDoTitleInput.value;
+        const dueDate = dueDateInput.value;
+
+        editToDoElement(todoElement, toDoTitle, dueDate);
+
+        form.reset();
+        dialog.close();
     })
 }
 
+function editToDoElement(todoElement, toDoTitle, dueDate) {
+    const titleElement = todoElement.querySelector(".title-span");
+    const dueDateElement = todoElement.querySelector(".due-date-span");
+
+    titleElement.textContent = toDoTitle;
+    dueDateElement.textContent = dueDate;
+
+    editAttributeInLocalStorage(todoElement, "title", toDoTitle);
+    editAttributeInLocalStorage(todoElement, "dueDate", dueDate)
+}
+ 
 function createDeleteButton(todoElement) {
     const deleteButton = document.createElement("button");
     deleteButton.className = "delete-button";
