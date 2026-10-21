@@ -1,5 +1,6 @@
 import { createToDoElement } from "./todoView.js";
 import { ToDo } from "../models/todo.js";
+import { format } from 'date-fns';
 
 export function createProjectElement(projectId, title, buildFromStorage=false) {
     const body = document.querySelector("body");
@@ -29,7 +30,7 @@ export function createProjectElement(projectId, title, buildFromStorage=false) {
         const toDoTitleInput = form.querySelector(".todo-title-input");
         const toDoTitle = toDoTitleInput.value;
         const dueDateInput = form.querySelector(".todo-dueDate-input");
-        const dueDate = dueDateInput.value;
+        const dueDate = format(new Date(dueDateInput.value), 'EEEE, MMM dd, yyyy');
 
         const todo = new ToDo(toDoTitle, dueDate);
         createToDoElement(projectId, todo.getId(), toDoTitle, dueDate);

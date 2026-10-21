@@ -11,11 +11,11 @@ export function createToDoElement(projectId, todoId, title, dueDate, isCompleted
     const textDiv = document.createElement("div");
     textDiv.className = "todo-text"
     const titleSpan = document.createElement("span");
-    titleSpan.textContent = `${title} `;
+    titleSpan.textContent = `${title}`;
     titleSpan.className = "title-span"
     const dueDateSpan = document.createElement("span");
     dueDateSpan.className = "due-date-span"
-    dueDateSpan.textContent = `due by: ${dueDate}`;
+    dueDateSpan.textContent = dueDate === "" ? "" : ` due by: ${dueDate}`;
 
     textDiv.appendChild(titleSpan);
     textDiv.appendChild(dueDateSpan);

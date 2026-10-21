@@ -12,18 +12,18 @@
     <dialog id="add-project-dialog">
         <form class="add-project-form">
             <label for="project-title-input">Project title:</label>
-            <input id="project-title-input" type="text">
+            <input id="project-title-input" type="text" required>
 
             <button>Create Project</button>
         </form>
+        <button class="close-button">Close</button>
     </dialog>
 
     <template id="add-todo-template">
         <form class="add-todo-form">
-            <label for="title">Title: </label>
-            <input class="todo-title-input" type="text">
+            <label for="title">New Todo: </label>
+            <input class="todo-title-input" placeholder="description" type="text" required>
 
-            <label for="dueDate">Due Date: </label>
             <input class="todo-dueDate-input" type="date">
 
             <button>Submit</button>
