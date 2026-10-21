@@ -1,5 +1,6 @@
 export function createToDoElement(projectId, todoId, title, dueDate, isCompleted=false, buildFromStorage=false) {
     const projectElement = document.querySelector(`.project[data-project-id="${projectId}"]`);
+    const todosElement = projectElement.querySelector('.todos');
 
     const todoElement = document.createElement("div");
     todoElement.className = "todo";
@@ -14,7 +15,7 @@ export function createToDoElement(projectId, todoId, title, dueDate, isCompleted
     createEditButton(todoElement);
     createDeleteButton(todoElement);
 
-    projectElement.appendChild(todoElement);
+    todosElement.appendChild(todoElement);
 
     if (!buildFromStorage) {
         const projectsArray = JSON.parse(localStorage.getItem("projects")) || [];

@@ -1,5 +1,33 @@
+body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .project {
     display: flex;
     flex-direction: column;
+    padding: 20px;
     font-size: 30px;
+    background-color: rgb(252, 234, 237);
+    gap: 10px;
+}
+
+.project-title {
+    font-weight: bold;
+}
+
+.todo {
+    display: flex;
+    gap: 10px;
+}
+
+.todo:has(input[type="checkbox"]:checked) {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+button {
+    padding: 5px;
+    font-size: 18px;
 }

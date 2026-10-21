@@ -7,11 +7,16 @@ export function createProjectElement(projectId, title, buildFromStorage=false) {
     projectElement.setAttribute("class", "project");
     projectElement.setAttribute("data-project-id", projectId);
 
-    const projectTitle = document.createElement("h3");
+    const projectTitle = document.createElement("div");
+    projectTitle.className = "project-title";
     projectTitle.textContent = title;
     projectElement.appendChild(projectTitle);
 
     body.appendChild(projectElement);
+
+    const todosElement = document.createElement("div")
+    todosElement.className = "todos"
+    projectElement.appendChild(todosElement);
 
     const addTodoTemplate = document.getElementById("add-todo-template");
     const clone = addTodoTemplate.content.cloneNode(true);
